@@ -1,7 +1,7 @@
 using Domain;
 using FluentNHibernate.Mapping;
 
-namespace DataAccess
+namespace DataAccess.Master
 {
     public class ProductsMap : ClassMap<Products>
     {

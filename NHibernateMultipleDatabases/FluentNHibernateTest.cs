@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
-using DataAccess;
+using DataAccess.Master;
+using DataAccess.MyGuitar;
+using DataAccess.Playground;
 using Domain;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
 namespace NHibernateMultipleDatabases
@@ -28,14 +32,14 @@ namespace NHibernateMultipleDatabases
                 Assert.That(guitarTypes.Count, Is.EqualTo(10), "number of guitar types");
             }
         }
-        
+
         [Test]
-        public void GetSomeDataFromSqlExpressPlaygroundDatabase()
+        public void GetSomeDataFromSqlServerMasterDatabase()
         {
             ISessionFactory sf = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2008
                               .ConnectionString(@"Data Source=WIN7-VIAO-NB\SAGENIUZ;Integrated Security=True"))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Products>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<ProductsMap>())
                 .BuildSessionFactory();
 
             using (ISession session = sf.OpenSession())
@@ -45,6 +49,49 @@ namespace NHibernateMultipleDatabases
 
                 Assert.That(products.Count, Is.EqualTo(0), "number of products");
             }
+        }
+        
+        [Test]
+        public void CheckIfFluentNHibernateThrowsExceptionIfNoTablesExist()
+        {
+            ISessionFactory sf = Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2008
+                              .ConnectionString(@"Data Source=WIN7-VIAO-NB\SAGENIUZ;Initial Catalog=NHibernate;Integrated Security=True"))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentMap>())
+                .BuildSessionFactory();
+        }
+
+        [Test]
+        public void GetSomeDataFromSqlServerPlaygroundDatabase()
+        {
+            ISessionFactory sf = Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2008
+                              .ConnectionString(@"Data Source=WIN7-VIAO-NB\SAGENIUZ;Initial Catalog=Playground;Integrated Security=True"))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentMap>())
+//                .ExposeConfiguration(BuildSchema)
+                .BuildSessionFactory();
+
+            using (ISession session = sf.OpenSession())
+            {
+                using (ITransaction tx = session.BeginTransaction())
+                {
+                    session.Save(new Student() { Id = 1 });
+                    tx.Commit();
+                }
+            }
+
+            using (ISession session = sf.OpenSession())
+            {
+                ICriteria criteria = session.CreateCriteria<Student>();
+                IList<Student> students = criteria.List<Student>();
+
+                Assert.That(students.Count, Is.AtLeast(1), "number of students");
+            }
+        }
+
+        private void BuildSchema(Configuration config)
+        {
+            new SchemaExport(config).Create(script: false, export: true);
         }
     }
 }
