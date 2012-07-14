@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CB67DA16-67B9-41F1-9AB4-E56EA8460356}</ProjectGuid>
+    <ProjectGuid>{61B92EEF-29E8-48E7-B32D-E118F258950A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NHibernateMultipleDatabases</RootNamespace>
-    <AssemblyName>NHibernateMultipleDatabases</AssemblyName>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -37,14 +37,8 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,17 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FluentNHibernateTest.cs" />
+    <Compile Include="GuitarMap.cs" />
+    <Compile Include="ProductsMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{61B92EEF-29E8-48E7-B32D-E118F258950A}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{733507DF-1A4D-42F2-A848-F5B8478B0CFD}</Project>
       <Name>Domain</Name>

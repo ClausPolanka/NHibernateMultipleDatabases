@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernateMultipleDatabases", "NHibernateMultipleDatabases\NHibernateMultipleDatabases.csproj", "{CB67DA16-67B9-41F1-9AB4-E56EA8460356}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{733507DF-1A4D-42F2-A848-F5B8478B0CFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{61B92EEF-29E8-48E7-B32D-E118F258950A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{CB67DA16-67B9-41F1-9AB4-E56EA8460356}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB67DA16-67B9-41F1-9AB4-E56EA8460356}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB67DA16-67B9-41F1-9AB4-E56EA8460356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{733507DF-1A4D-42F2-A848-F5B8478B0CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{733507DF-1A4D-42F2-A848-F5B8478B0CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{733507DF-1A4D-42F2-A848-F5B8478B0CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{733507DF-1A4D-42F2-A848-F5B8478B0CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61B92EEF-29E8-48E7-B32D-E118F258950A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B92EEF-29E8-48E7-B32D-E118F258950A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B92EEF-29E8-48E7-B32D-E118F258950A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B92EEF-29E8-48E7-B32D-E118F258950A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
