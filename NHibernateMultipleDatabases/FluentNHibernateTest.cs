@@ -62,13 +62,13 @@ namespace NHibernateMultipleDatabases
         }
 
         [Test]
-        public void GetSomeDataFromSqlServerPlaygroundDatabase()
+        public void GetSomeInsertedDataFromSqlServerPlaygroundDatabase()
         {
             ISessionFactory sf = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2008
                               .ConnectionString(@"Data Source=WIN7-VIAO-NB\SAGENIUZ;Initial Catalog=Playground;Integrated Security=True"))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentMap>())
-//                .ExposeConfiguration(BuildSchema)
+                .ExposeConfiguration(BuildSchema)
                 .BuildSessionFactory();
 
             using (ISession session = sf.OpenSession())
@@ -76,6 +76,7 @@ namespace NHibernateMultipleDatabases
                 using (ITransaction tx = session.BeginTransaction())
                 {
                     session.Save(new Student() { Id = 1 });
+                    session.Save(new Student() { Id = 2 });
                     tx.Commit();
                 }
             }
@@ -85,7 +86,7 @@ namespace NHibernateMultipleDatabases
                 ICriteria criteria = session.CreateCriteria<Student>();
                 IList<Student> students = criteria.List<Student>();
 
-                Assert.That(students.Count, Is.AtLeast(1), "number of students");
+                Assert.That(students.Count, Is.EqualTo(2), "number of students");
             }
         }
 
