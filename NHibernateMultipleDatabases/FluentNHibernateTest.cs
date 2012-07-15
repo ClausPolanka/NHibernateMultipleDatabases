@@ -54,7 +54,7 @@ namespace NHibernateMultipleDatabases
         [Test]
         public void CheckIfFluentNHibernateThrowsExceptionIfNoTablesExist()
         {
-            ISessionFactory sf = Fluently.Configure()
+            Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2008
                               .ConnectionString(@"Data Source=WIN7-VIAO-NB\SAGENIUZ;Initial Catalog=NHibernate;Integrated Security=True"))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentMap>())
@@ -75,8 +75,8 @@ namespace NHibernateMultipleDatabases
             {
                 using (ITransaction tx = session.BeginTransaction())
                 {
-                    session.Save(new Student() { Id = 1 });
-                    session.Save(new Student() { Id = 2 });
+                    session.Save(new Student { Id = 1 });
+                    session.Save(new Student { Id = 2 });
                     tx.Commit();
                 }
             }
