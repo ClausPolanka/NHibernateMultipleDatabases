@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DataAccess;
 using DataAccess.Master;
 using DataAccess.MyGuitar;
 using DataAccess.Playground;
@@ -88,6 +89,31 @@ namespace NHibernateMultipleDatabases
 
                 Assert.That(students.Count, Is.EqualTo(2), "number of students");
             }
+        }
+
+        [Test]
+        public void GetSomeInsertedDataFromSqlServerPlaygroundDatabaseUsingCustomTransactionContext()
+        {
+            ISessionFactory sf = Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2008
+                              .ConnectionString(@"Data Source=WIN7-VIAO-NB\SAGENIUZ;Initial Catalog=Playground;Integrated Security=True"))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentMap>())
+                .ExposeConfiguration(BuildSchema)
+                .BuildSessionFactory();
+
+            TranactionContext.Execute(sf, session =>
+            {
+                session.Save(new Student { Id = 1 });
+                session.Save(new Student { Id = 2 });
+            });
+
+            TranactionContext.Execute(sf, session =>
+            {
+                ICriteria criteria = session.CreateCriteria<Student>();
+                IList<Student> students = criteria.List<Student>();
+
+                Assert.That(students.Count, Is.EqualTo(2), "number of students");
+            });
         }
 
         private void BuildSchema(Configuration config)
